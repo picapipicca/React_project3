@@ -4,7 +4,6 @@ import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
 import User from "./modules/user";
-import { withThemeCreator } from "@material-ui/styles";
 
 //history 객체 만들기
 export const history = createBrowserHistory(); 
@@ -16,7 +15,7 @@ const rootReducer = combineReducers({
   });
 
   //미들웨어 준비
-  const middlewares = [thunk,withExtraArgument({history : history})];
+  const middlewares = [thunk.withExtraArgument({history : history})];
 
     // 지금이 어느 환경인 지 알려줘요. (개발환경, 프로덕션(배포)환경 ...)
 const env = process.env.NODE_ENV;

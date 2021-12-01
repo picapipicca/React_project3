@@ -10,7 +10,7 @@ const Post =(props) => {
     return (
         <React.Fragment>
             <Grid >
-                <Grid is_flex> 
+                <Grid is_flex padding="16px"> 
                     <Image shape = "circle" src = {props.src}/>
                     <Text bold>{props.user_info.user_name}</Text>
                     <Text>{props.insert_dt}</Text>
@@ -24,10 +24,6 @@ const Post =(props) => {
                 <Grid padding = "16px">
                     <Text bold>댓글{props.comment_cnt}개</Text>
                 </Grid>
-                <div>user profile image/ user name /insert_dt    </div>
-                <div>contents</div>
-                <div>contents image </div>
-                <div>comment count </div>
             </Grid>
         </React.Fragment>
     );
