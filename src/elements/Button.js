@@ -2,47 +2,61 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { text, _onClick, color, bgcolor, is_float } = props;
-  const styles = { color: color, bgcolor: bgcolor };
+  const { _disabled, text, _onClick, color, bgcolor, is_float, children, margin, width, padding } =
+    props;
 
   if (is_float) {
     return (
       <React.Fragment>
-        <FloatButton onClick={_onClick}>{text}</FloatButton>
+        <FloatButton onClick={_onClick}> {text ? text : children} </FloatButton>
       </React.Fragment>
     );
   }
-
+  const styles = {
+    color: color,
+    bgcolor: bgcolor,
+    margin: margin,
+    width: width,
+    padding: padding,
+  };
+  
   return (
     <React.Fragment>
-      <ButtonTag {...styles} onClick={_onClick}>
-        {text}
+      <ButtonTag {...styles} disabled = {_disabled} onClick={_onClick}>
+        {text ? text : children}
       </ButtonTag>
     </React.Fragment>
   );
 };
+
 Button.defaultProps = {
   color: "#212121",
   bgcolor: false,
-  text: "버튼입니다!",
+  text: false,
   _onClick: () => {},
   is_float: false,
+  children: null,
+  margin: false,
+  width: "100%",
+  padding : "12px 0px;",
+  _disabled:false,
 };
 
 const ButtonTag = styled.button`
-  width: 100%;
-  background-color: #d9edd8;
-  ${(props) => (props.bgcolor ? `background-color : ${props.bgcolor}` : "")};
+  width: ${ (props) => props.width};
+  ${(props)=> (props.margin? `margin : ${props.margin};`: "")};
+  background-color: ${((props)=>props.disabled? "#cad4c9":"#d9edd8")};
+  ${(props) => (props.bgcolor ? `background-color : ${props.bgcolor};` : "")};
   color: ${(props) => props.color};
-  padding: 12px 0px;
+  padding: ${(props) => props.padding};
   box-sizing: border-box;
   border: none;
 `;
 
 const FloatButton = styled.button`
-  width : 50px;
-  height : 50px;
-  background-color: #d9e62e;
+  width: 50px;
+  height: 50px;
+  background-color: ${((props)=>props.disabled? "#cad4c9":"#d9edd8")};
   color: #212121;
   box-sizing: border-box;
   font-size: 36px;
@@ -52,7 +66,7 @@ const FloatButton = styled.button`
   right: 16px;
   text-align: center;
   border: none;
-  border-radius :50px;
-  vertical-align : middle;
+  border-radius: 50px;
+  vertical-align: middle;
 `;
 export default Button;

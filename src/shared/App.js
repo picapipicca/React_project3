@@ -1,5 +1,5 @@
-import React from 'react';
 import './App.css';
+import React from 'react';
 
 import {BrowserRouter, Route} from "react-router-dom";
 import { ConnectedRouter } from 'connected-react-router';
@@ -8,15 +8,20 @@ import { history } from '../redux/configStore';
 import PostList from '../pages/PostList';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
+import PostWrite from '../pages/PostWrite';
+import PostDetail from "../pages/PostDetail";
+import Search from './Search';
+import Notification from '../pages/Notification';
 
 import Header from '../components/Header';
 import {Button, Grid} from "../elements"
+import Permit from './Permit';
 
 import { useDispatch } from 'react-redux';
-import {actionCreators as userAcitions } from "../redux/modules/user";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import {apiKey} from "./firebase";
-import Permit from './Permit';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -25,11 +30,9 @@ function App() {
   const is_session = sessionStorage.getItem(_session_key)? true : false;  
 
   React.useEffect(()=> {
-
     if(_session_key){
-       dispatch(userAcitions.loginCheckFB());
+       dispatch(userActions.loginCheckFB());
     }
-
   },[]);
 
   return (
@@ -40,10 +43,15 @@ function App() {
         <Route path = "/" exact component={PostList} />
         <Route path = "/login" exact component={Login}/>
         <Route path = "/signup" exact component= {Signup}/>
+        <Route path = "/write" exact component= {PostWrite}/>
+        <Route path = "/write/:id" exact component= {PostWrite}/>
+        <Route path = "/post/:id" exact component = {PostDetail} />
+        <Route path = "/search" exact component = {Search}/>
+        <Route path = "/noti" exact component ={Notification}/>
       </ConnectedRouter>
      </Grid>
      <Permit>
-       <Button is_float text= "+"></Button>
+       <Button is_float text= "+" _onClick = {() => {history.push("/write");}}></Button>
      </Permit>
     </React.Fragment>
   );

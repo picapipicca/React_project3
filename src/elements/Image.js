@@ -24,7 +24,7 @@ const Image = (props) => {
 
     return (
         <React.Fragment>
-
+            <ImageDefault {...styles}></ImageDefault>
         </React.Fragment>
     );
 }
@@ -34,6 +34,13 @@ Image.defaultProps = {
     src: "https://s3.ap-northeast-2.amazonaws.com/picapipicca.shop/%E1%84%83%E1%85%A9%E1%86%BC%E1%84%89%E1%85%A5%E1%86%A8%E1%84%92%E1%85%A7%E1%86%BC%E1%84%82%E1%85%B5%E1%86%B7.jpeg",
     size : 36,
 };
+const ImageDefault = styled.div`
+      --size : ${(props)=> props.size}px;
+    width : var(--size);
+    height : var(--size);
+    background-image: url("${(props)=> props.src}");
+    background-size: cover;
+`;
 
 const AspectOutter =styled.div`
     width: 100%;
